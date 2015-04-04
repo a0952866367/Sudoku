@@ -17,7 +17,7 @@ public:
 				return false;
 			}
 		}
-		for( int i=0 ; i<12 ; i++ ){
+		for( int i=0 ; i<12 ; i++ ){//check column
 			for( int j=0 ; j<12 ; j++ ){
 				check[j] = map[i+12*j];
 			}
@@ -26,7 +26,7 @@ public:
 				return false;
 			}
 		}
-		for( int i=0 ; i<12 ; i++ ){
+		for( int i=0 ; i<12 ; i++ ){//check cell
 			for( int j=0 ; j<12 ; j++ ){
 				int cell = ;///////////////////
 				check[j] = map[cell];
@@ -36,6 +36,7 @@ public:
 				return false;
 			}
 		}
+		return true;
 	}
 	void GiveQuestion();
 	void ReadIn(){
