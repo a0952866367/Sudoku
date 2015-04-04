@@ -6,7 +6,36 @@ public:
 	static const int size = 144;
 	
 	bool CheckMap(int all[]){
-		
+		int check[12];
+		bool result;
+		for( int i=0 ; i<144 ; i+=12 ){//check row
+			for( int j=0 ; j<12 ;j++ ){
+				check[j] = map[i+j];
+			}
+			result = CheckUnity( check[] );
+			if( result==false ){
+				return false;
+			}
+		}
+		for( int i=0 ; i<12 ; i++ ){
+			for( int j=0 ; j<12 ; j++ ){
+				check[j] = map[i+12*j];
+			}
+			result = CheckUnity( check[] );
+			if( result==false ){
+				return false;
+			}
+		}
+		for( int i=0 ; i<12 ; i++ ){
+			for( int j=0 ; j<12 ; j++ ){
+				int cell = ;///////////////////
+				check[j] = map[cell];
+			}
+			result = CheckUnity( check[] );
+			if( result==false ){
+				return false;
+			}
+		}
 	}
 	void GiveQuestion();
 	void ReadIn(){
