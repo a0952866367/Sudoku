@@ -26,19 +26,21 @@ public:
 				return false;
 			}
 		}
-		for( int i=0 ; i<12 ; i++ ){//check cell
-			for( int j=0 ; j<12 ; j++ ){
-				int cell = ;///////////////////
-				check[j] = map[cell];
+		for( int i=0 ; i<16 ; i++ ){//check cell
+			for( int j=0 ; j<9 ; j++ ){
+				int locate = 36*(i/4) + 3*(i%4) + 12*(j/3) + (j%3);
+				check[j] =  map[locate];
 			}
-			result = CheckUnity( check[] );
+			result = CheckCell( check[] );
 			if( result==false ){
 				return false;
 			}
 		}
 		return true;
 	}
+	
 	void GiveQuestion();
+	
 	void ReadIn(){
 		for( int i = 0 ; i < 12 ; i++ ){
             		for( int j = 0 ; j < 12 ; j++ ){
@@ -46,14 +48,12 @@ public:
 			}
 		}
 	}
+	
 	void Solve();
 private:
 	int map[size] = {};
-	bool CheckUnity(int unit[]){
+	bool CheckUnity( int unit[] ){
 		int amount[12] = {};//count unity numbers(set to 0)
-		for( int i=0 ; i<12 ; i++ ){
-			unit[i] = all[i];
-		}
 		for( int i=0 ; i<12 ; i++ ){
 			amount[ unit[i]+1 ]++;
 		}
@@ -67,5 +67,15 @@ private:
 		}
 		return true;
 	}
-	
+	bool CheckCell( int cell[] ){
+		int amount[9] = {}//count unity number (set to 0)
+		for( int i=0 ; i<9 ; i++ ){
+			amount[ cell[i]-1 ]++;
+		}
+		for( int i=0 ; i<9 ;i++ ){
+			if( amount[i]!=1 ){
+				return false;
+			}
+		}
+		return true;
 }
