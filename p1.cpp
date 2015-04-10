@@ -5,7 +5,7 @@ class sudoku{
 public:
 	static const int size = 144;
 	
-	bool CheckMap(int all[]){
+	bool CheckMap(int map[]){
 		int check[12];
 		bool result;
 		for( int i=0 ; i<144 ; i+=12 ){//check row
@@ -51,7 +51,7 @@ public:
 	
 	void Solve();
 private:
-	int map[size] = {};
+	//int map[size] = {};
 	bool CheckUnity( int unit[] ){
 		int amount[12] = {};//count unity numbers(set to 0)
 		for( int i=0 ; i<12 ; i++ ){
@@ -79,3 +79,4 @@ private:
 		}
 		return true;
 }
+
