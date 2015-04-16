@@ -6,7 +6,7 @@ using namespace std;
 class sudoku{
 public:
    static const int size = 144;
-
+	int sudokumap[size];
    bool CheckMap( int map[] ){
        int check[12];
        bool result;
@@ -129,13 +129,25 @@ public:
 		}
 	}
 	 
-	/*void ReadIn(){
+	void ReadIn(){
 		for( int i = 0 ; i < 144 ; i++ ){
 			cin >> sudokumap[i];
       }
+	}
+   
+  /* void Solve(){
+		int zero = getFirstZero();
+		for( int try=1 ; try<=9 ; try++ ){
+			
+			
+			
+			
+			
+		}
+		
+		
+		
 	}*/
-    
-    void Solve();
     
 private:
    bool CheckUnity( int unit[] ){
@@ -153,6 +165,7 @@ private:
        }
        return true;
    }
+
    bool CheckCell( int cell[] ){
       int amount[9] = {};//count unity number (set to 0)
       int fuyee = 0;//number of -1
@@ -176,6 +189,15 @@ private:
 		}
    	return true;
    }
+
+	int getFirstZero(){
+		for( int i=0 ; i<144 ; i++ ){
+			if( sudokumap[i]==0 ){
+				return i;
+			}
+			return -1;
+		}
+	}
 };
 
 ////////////////////////////////////////////////////////////
