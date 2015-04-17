@@ -266,12 +266,12 @@ int main(){
 					  8,2,9,4,7,5,1,3,6,-1,-1,-1};
 	rr = ss.CheckMap(test5);
 	ss.GiveQuestion();
-   if( rr==false ){
+   /*if( rr==false ){
    	cout << "False" << endl;
    }
    else
       cout << "True" << endl;
-
+	*/
    /*for( int i=0 ; i<144 ; i++ ){
 		cout << test2[i] << " ";
 		if( ( (i+1)%12 )==0 ){

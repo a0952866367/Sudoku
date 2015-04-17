@@ -4,6 +4,18 @@ class sdk{
 	public:
 		static const int sdk::size = 144;
 		int sdk::map[size];
+		int sdk::map1[size];
+		int sdk::map2[size];
+		int sdk::start1 = 1;
+		int sdk::start2 = 1;
+		int sdk::step1 = 1;
+		int sdk::step2 = 1;
+		int sdk::info1[size*2];
+		int sdk::info2[size*2];
+		int sdk::last1 = 0;
+		int sdk::last2 = 0;
+		int sdk::answer = 0;
+		
 		void sdk::GiveQuestion(){
 			int origin1[144]={4,2,6,8,7,3,9,5,1,-1,-1,-1,
 									8,7,3,9,5,1,6,2,4,-1,-1,-1,
@@ -93,41 +105,190 @@ class sdk{
 		}//GiveQuestion End;
 
 		void sdk::ReadIn(){
-			for( int i = 0 ; i < 144 ; i++ ){
+			for( int i=0 ; i<144 ; i++ ){
 				cin >> map[i];
+			}
+			for( int i=0 ; i<144 ; i++ ){
+				map1[i] = map[i];
+				map2[i] = map[i];
 			}
 		}
 
 		void sdk::Solve(){
-			int o = getFirstZero;
-			int x = o%12;
-			int y = o/12;
-			int row[12],column[12],cell[9];
-			for( int i=0 ; i<12 ; i++ )//check row
-				row[i] = map[y*12+i];
-			if( CheckLine(row)==false )
-				return false;
-			for( int i=0 ; i<size ; i+=12 )//check column
-				column[i] = map[x+i];
-			if( CheckLine(column)==false )
-				return false;
-			for( int i=0 ; ;  )//check cell
-				cell[i] = map[];
-			if( CheckCell(cell)==false )
-				return false;
-		}
-
-private:
-	      int sdk::getFirstZero(){
+			do{
+				int firstZero1 = getFirstZero( map1 );
+				if( firstZero1==-1 ){
+					do{
+						int firstZero2 = getFirstZero( map2 );
+						if( firstZero2==-1 ){
+							for( int i=0 ; i<144 ; i++ ){
+								if( map1[i]!=map2[i] ){
+									answer = 2;
+									break;
+								}
+							}
+							answer = 3;
+						}
+						else{
+							setElementdw( firstZero2 );
+						}
+					}while( (answer!=1)&&(answer!=2)&&(answer!=3) );
+				}
+				else{
+					setElementup( firstZero1 );
+				}
+			}while( (answer!=1)&&(answer!=2)&&(answer!=3) );
+			if( answer==1 ){//no solution
+				cout << "0" <<endl;
+			}
+			if( answer==2 ){//infinite solution
+				cout << "2" << endl;
+			}
+			if( answer==3 ){
+				cout << "1" << endl;
 				for( int i=0 ; i<144 ; i++ ){
-					if( sudokumap[i]==0 ){
-						return i;
+					cout << map1[i] << " ";
+					if( ( (i+1)%12 )==0 ){
+						cout << endl;
 					}
-					return -1;
 				}
 			}
+		}//Solve End
 
-			bool sdk::CheckLine( int line[] ){
+	   int sdk::getFirstZero( int map[] ){
+			for( int i=0 ; i<144 ; i++ ){
+				if( map[i]==0 ){
+					return i;
+				}
+				return -1;
+			}
+		}
+		
+		void setElementup( int z ){
+			int x = z%12;
+			int xx = x/3;
+			int y = z/12;
+			int yy = y/3;
+			int row[12];
+			int column[12];
+			int cell[9];
+			for( int i=0 ; i<12 ; i++ ){//get row
+				row[i] = map1[y*12+i];
+			}
+			for( int i=0 ; i<144 ; i+=12 ){//get column
+				column[i] = map1[x+i];
+			}
+			for( int i=0 ; i<9 ; i++ ){//get cell
+				cell[i] = map1[36*(yy%4)+3*(xx%4)+12*(i/3)+(i%3)];
+			}
+			start1 = 1;
+			if( last1==1 ){
+				start1 = map1[step1*2];
+			}
+			for( int set=start1 ; set<=9 ; set++ ){
+				int s = 1;//decide whether the number is right or not
+				for( int i=0 ; i<12 ; i++ ){//check row
+					if( row[i]==set ){
+						s = 0;
+						break;
+					}
+				}
+				for( int i=0 ; i<12 ; i++ ){//check column
+					if( s==0 ){
+						break;
+					}
+					else if( column[i]==set ){
+						s = 0;
+						break;
+					}
+				}
+				for( int i=0 ; i<9 ; i++ ){//check cell
+					if( s==0 ){
+						break;
+					}
+					else if( cell[i]==set ){
+						break;
+					}
+				}
+				if( s==1 ){
+					map1[z] = set;
+					info1[step1*2-1] = z;
+					info1[step1*2] = set;
+					step1++;
+					last1 = 0;
+				}
+			}//for End
+			step1--;
+			if( step1==0 ){
+				answer = 1;
+			}
+			map1[step1*2-1] = 0;
+			last1 = 1;
+		}//setElementup End
+
+		void setElementdw( int z ){
+			int x = z%12;
+			int xx = x/3;
+			int y = z/12;
+			int yy = y/3;
+			int row[12];
+			int column[12];
+			int cell[9];
+			for( int i=0 ; i<12 ; i++ ){//get row
+				row[i] = map2[y*12+i];
+			}
+			for( int i=0 ; i<144 ; i+=12 ){//get column
+				column[i] = map2[x+i];
+			}
+			for( int i=0 ; i<9 ; i++ ){//get cell
+				cell[i] = map2[36*(yy%4)+3*(xx%4)+12*(i/3)+(i%3)];
+			}
+			start2 = 1;
+			if( last2==1 ){
+				start2 = map2[step2*2];
+			}
+			for( int set=start2 ; set<=9 ; set++ ){
+				int s = 1;//decide whether the number is right or not
+				for( int i=0 ; i<12 ; i++ ){//check row
+					if( row[i]==set ){
+						s = 0;
+						break;
+					}
+				}
+				for( int i=0 ; i<12 ; i++ ){//check column
+					if( s==0 ){
+						break;
+					}
+					else if( column[i]==set ){
+						s = 0;
+						break;
+					}
+				}
+				for( int i=0 ; i<9 ; i++ ){//check cell
+					if( s==0 ){
+						break;
+					}
+					else if( cell[i]==set ){
+						break;
+					}
+				}
+				if( s==1 ){
+					map2[z] = set;
+					info2[step2*2-1] = z;
+					info1[step2*2] = set;
+					step2++;
+					last2 = 0;
+				}
+			}//for End
+			step2--;
+			if( step2==0 ){
+				answer = 1;
+			}
+			map2[step2*2-1] = 0;
+			last2 = 1;
+		}//setElementdw End
+
+			/*bool sdk::CheckLine( int line[] ){
 				int amount[12] = {};//count unity numbers(set to 0)
 					for( int i=0 ; i<12 ; i++ )
 						amount[ line[i]+1 ]++;
@@ -162,5 +323,5 @@ private:
 					}
 				}
 				return true;
-			}//CheckCell end;
+			}//CheckCell end;*/
 };//class end
