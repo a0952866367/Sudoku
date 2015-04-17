@@ -1,26 +1,28 @@
 #include<iostream>
 #include<cstdlib>
 #include<ctime>
+using namespace std;
 
 class sdk{
 	public:
+		sdk();
 		static const int size = 144;
-		int map[size];
-		int map1[size];
-		int map2[size];
+		int map[144];
+		int map1[144];
+		int map2[144];
 		int start1;
 		int start2;
 		int step1;
 		int step2;
-		int info1[size*2];
-		int info2[size*2];
+		int info1[288];
+		int info2[288];
 		int last1;
 		int last2;
 		int answer;
 		void GiveQuestion();
 		void ReadIn();
 		void Solve();
-		int getFirstZero();
+		int getFirstZero( int map[] );
 		void setElementup( int z );
 		void setElementdw( int z );
 };

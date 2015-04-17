@@ -1,8 +1,25 @@
 #include "Sudoku.h"
-
-class sdk{
-	public:
-		static const int sdk::size = 144;
+using namespace std;
+		
+		sdk::sdk(){
+			for( int i=0 ; i<size ; i++){
+				map[i] = 0;
+				map1[i] = 0;
+				map2[i] = 0;
+			}
+			start1 = 1;
+			start2 = 1;
+			step1 = 1;
+			step2 = 1;
+			for( int i=0 ; i<size*2 ; i++ ){
+				info1[i] = 0;
+				info2[i] = 0;
+			}
+			last1 = 0;
+			last2 = 0;
+			answer = 0;
+		}
+		/*static const int sdk::size = 144;
 		int sdk::map[size];
 		int sdk::map1[size];
 		int sdk::map2[size];
@@ -15,7 +32,7 @@ class sdk{
 		int sdk::last1 = 0;
 		int sdk::last2 = 0;
 		int sdk::answer = 0;
-		
+		*/
 		void sdk::GiveQuestion(){
 			int origin1[144]={4,2,6,8,7,3,9,5,1,-1,-1,-1,
 									8,7,3,9,5,1,6,2,4,-1,-1,-1,
@@ -164,7 +181,7 @@ class sdk{
 			}
 		}
 		
-		void setElementup( int z ){
+		void sdk::setElementup( int z ){
 			int x = z%12;
 			int xx = x/3;
 			int y = z/12;
@@ -226,7 +243,7 @@ class sdk{
 			last1 = 1;
 		}//setElementup End
 
-		void setElementdw( int z ){
+		void sdk::setElementdw( int z ){
 			int x = z%12;
 			int xx = x/3;
 			int y = z/12;
@@ -324,4 +341,3 @@ class sdk{
 				}
 				return true;
 			}//CheckCell end;*/
-};//class end
