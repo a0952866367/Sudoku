@@ -127,30 +127,22 @@ using namespace std;
 			do{
 				int firstZero1 = getFirstZero( map1 );
 				if( firstZero1==-1 ){
-			/*		cout<<"map1::::"<<endl;/////////////
-					for(int i=0;i<144;i++){///////////////
-						cout<<map1[i]<<" ";////////
-						if( (i+1)%12==0 ) cout<<endl;/////
-					}////////
-					cout<<"map2::::"<<endl;/////
-					for(int i=0;i<144;i++){///////////////
-						cout<<map1[i]<<" ";
-						if( (i+1)%12==0 ) cout<<endl;
-					}/////////////////////////
-			*/
 					do{
 						int firstZero2 = getFirstZero( map2 );
 						if( firstZero2==-1 ){
-							for( int i=0 ; i<1000 ; i++ ){
-								if( info1[i]!=info2[i] ){
-									answer = 2;
-									break;
+							int same = 0;
+							for( int i=0 ; i<144 ; i++ ){
+								if( map1[i]==map2[i] ){
+									same++;
 								}
 							}
-							if( CheckMap( map1 )==true ){
+							if( same==144 ){
 								answer = 3;
 							}
-							else answer = 1;
+							else{
+								answer = 2;
+							}
+							
 						}
 						else{
 							setElementdw( firstZero2 );
@@ -207,7 +199,7 @@ using namespace std;
 			int start = 1;
 			int ss = 1;
 			if( last1==1 ){
-				start = map1[step1*2];
+				start = info1[step1*2]+1;
 			}
 			for( int set=start ; set<=9 ; set++ ){
 				int s = 1;//decide whether the number is right or not
@@ -237,19 +229,20 @@ using namespace std;
 				}
 				if( s==1 ){
 					map1[z] = set;
-					info1[step1*2-1] = z;    cout<<"info1["<<step1*2-1<<"]="<<z<<endl;//////////////
-					info1[step1*2] = set;   cout<<"info1["<<step1*2<<"]="<<set<<endl;////////////////////
-					step1++;
+					info1[step1*2-1] = z;    
+					info1[step1*2] = set;   
+					step1++;       
 					last1 = 0;
 					ss = 0;
+					break;
 				}
 			}//for End
 			if( ss==1 ){
-				step1--;
+				step1--;   
 				if( step1==0 ){
 					answer = 1;
 				}
-				map1[step1*2-1] = 0;
+				map1[ info1[step1*2-1] ] = 0;  
 				last1 = 1;
 			}
 		}//setElementup End
@@ -274,7 +267,7 @@ using namespace std;
 			int ss = 1;
 			int start = 9;
 			if( last2==1 ){
-				start = map2[step2*2];
+				start = info2[step2*2]-1;
 			}
 			for( int set=start ; set>=1 ; set-- ){
 				int s = 1;//decide whether the number is right or not
@@ -295,7 +288,6 @@ using namespace std;
 				}
 				for( int i=0 ; i<9 ; i++ ){//check cell
 					if( s==0 ){
-						s = 0;
 						break;
 					}
 					else if( cell[i]==set ){
@@ -305,15 +297,12 @@ using namespace std;
 				}
 				if( s==1 ){
 					map2[z] = set;
-					info2[step2*2-1] = z; cout<<"info2["<<step2*2-1<<"]="<<z<<endl;/////////////////
-					info2[step2*2] = set;  cout<<"info2["<<step2*2<<"]="<<set<<endl;/////////////////
+					info2[step2*2-1] = z; 
+					info2[step2*2] = set; 
 					step2++;
 					last2 = 0;
 					ss = 0;
-					for(int i=0;i<144;i++){//////
-						cout<<map2[i]<<" ";
-						if((i+1)%12==0)cout<<endl;
-					}////////////
+					break;
 				}
 			}//for End
 			if( ss==1 ){
@@ -321,7 +310,7 @@ using namespace std;
 				if( step2==0 ){
 					answer = 1;
 				}
-				map2[step2*2-1] = 0;
+				map2[ info2[step2*2-1] ] = 0;
 				last2 = 1;
 			}
 		}//setElementdw End
@@ -395,4 +384,4 @@ using namespace std;
 				}
 			}
 			return true;
-		}//CheckCell end;*/
+		}//CheckCell end;
