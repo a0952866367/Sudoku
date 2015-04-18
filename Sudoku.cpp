@@ -1,7 +1,7 @@
 #include "Sudoku.h"
 using namespace std;
 		
-		sdk::sdk(){
+		Sudoku::Sudoku(){
 			for( int i=0 ; i<size ; i++){
 				map[i] = 0;
 				map1[i] = 0;
@@ -18,7 +18,7 @@ using namespace std;
 			answer = 0;
 		}
 		
-		void sdk::GiveQuestion(){
+		void Sudoku::GiveQuestion(){
 			int origin1[144]={4,2,6,8,7,3,9,5,1,-1,-1,-1,
 									8,7,3,9,5,1,6,2,4,-1,-1,-1,
 									9,5,1,6,2,4,8,7,3,-1,-1,-1,
@@ -106,7 +106,7 @@ using namespace std;
 			}
 		}//GiveQuestion End;
 
-		void sdk::ReadIn(){
+		void Sudoku::ReadIn(){
 			int fuyee = 0;
 			for( int i=0 ; i<144 ; i++ ){
 				cin >> map[i];
@@ -123,7 +123,7 @@ using namespace std;
 			}
 		}
 
-		void sdk::Solve(){
+		void Sudoku::Solve(){
 			do{
 				int firstZero1 = getFirstZero( map1 );
 				if( firstZero1==-1 ){
@@ -170,7 +170,7 @@ using namespace std;
 			}
 		}//Solve End
 
-	   int sdk::getFirstZero( int map[] ){
+	   int Sudoku::getFirstZero( int map[] ){
 			for( int i=0 ; i<144 ; i++ ){
 				if( map[i]==0 ){
 					return i;
@@ -179,7 +179,7 @@ using namespace std;
 			return -1;
 		}
 		
-		void sdk::setElementup( int z ){
+		void Sudoku::setElementup( int z ){
 			int x = z%12;
 			int xx = x/3;
 			int y = z/12;
@@ -247,7 +247,7 @@ using namespace std;
 			}
 		}//setElementup End
 
-		void sdk::setElementdw( int z ){
+		void Sudoku::setElementdw( int z ){
 			int x = z%12;
 			int xx = x/3;
 			int y = z/12;
@@ -315,7 +315,7 @@ using namespace std;
 			}
 		}//setElementdw End
 
-		bool sdk::CheckMap( int map[] ){
+		bool Sudoku::CheckMap( int map[] ){
 			int check[12];
 			bool result;
 			for( int i=0 ; i<144 ; i+=12 ){//check row
@@ -349,7 +349,7 @@ using namespace std;
 			return true;
 		}
 
-		bool sdk::CheckLine( int line[] ){
+		bool Sudoku::CheckLine( int line[] ){
 			int amount[12] = {};//count unity numbers(set to 0)
 				for( int i=0 ; i<12 ; i++ )
 					amount[ line[i]+1 ]++;
@@ -363,7 +363,7 @@ using namespace std;
 				return true;
 		}//CheckLine end;
 			
-		bool sdk::CheckCell( int cell[] ){
+		bool Sudoku::CheckCell( int cell[] ){
 			int amount[9] = {};//count unity number (set to 0)
 			int fuyee = 0;//number of -1
 			for( int i=0 ; i<9 ; i++ ){

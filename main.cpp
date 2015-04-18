@@ -2,7 +2,7 @@
 #include"Sudoku.h"
 using namespace std;
 int main(){
-	sdk ss;
+	Sudoku ss;
 	//ss.GiveQuestion();
 	ss.ReadIn();
 	ss.Solve();

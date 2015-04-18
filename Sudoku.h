@@ -3,9 +3,9 @@
 #include<ctime>
 using namespace std;
 
-class sdk{
+class Sudoku{
 	public:
-		sdk();
+		Sudoku();
 		static const int size = 144;
 		int map[144];
 		int map1[144];
