@@ -14,8 +14,8 @@ class sdk{
 		int start2;
 		int step1;
 		int step2;
-		int info1[288];
-		int info2[288];
+		int info1[1000];//maximum step:972
+		int info2[1000];//maximum step:972
 		int last1;
 		int last2;
 		int answer;

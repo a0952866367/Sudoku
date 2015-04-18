@@ -11,7 +11,7 @@ using namespace std;
 			start2 = 1;
 			step1 = 1;
 			step2 = 1;
-			for( int i=0 ; i<size*2 ; i++ ){
+			for( int i=0 ; i<1000 ; i++ ){
 				info1[i] = 0;
 				info2[i] = 0;
 			}
@@ -129,14 +129,42 @@ using namespace std;
 				map1[i] = map[i];
 				map2[i] = map[i];
 			}
+		/*	for(int i=0 ; i<144 ; i++){/////DDDDDDDDDDDDDDDDDDDDDDDD//////////////////
+				cout << map1[i] << " " ;
+				if( (i+1)%12==0 ) cout << endl;
+			}
+			for(int i=0 ; i<144 ; i++){/////DDDDDDDDDDDDDDDDDDDDDDDD///////////////////
+				cout << map2[i] << " " ;
+				if( (i+1)%12==0 ) cout << endl;
+			}  
+		*/
 		}
 
 		void sdk::Solve(){
 			do{
+				/*cout << "map1:" << endl;///////DDDDDDDDDDDDDDDDDDDDDDDD///////////////////
+				for(int i=0 ; i<144 ; i++){/////DDDDDDDDDDDDDDDDDDDDDDDD///////////////////
+					cout << map2[i] << " " ;
+					if( (i+1)%12==0 ) cout << endl;
+				}*/
 				int firstZero1 = getFirstZero( map1 );
+				/*cout << "map1:" << endl;///////DDDDDDDDDDDDDDDDDDDDDDDD///////////////////
+				for(int i=0 ; i<144 ; i++){/////DDDDDDDDDDDDDDDDDDDDDDDD///////////////////
+					cout << map1[i] << " " ;
+					if( (i+1)%12==0 ) cout << endl;
+				}
+				cout << "firstZero1:" << firstZero1 <<endl;/////////DDDDDDDDDDDDDDDDDDDDDDDDD///////////
+				*/
 				if( firstZero1==-1 ){
 					do{
 						int firstZero2 = getFirstZero( map2 );
+					/*	cout << "map2:" << endl;///////DDDDDDDDDDDDDDDDDDDDDDDD///////////////////
+						for(int i=0 ; i<144 ; i++){/////DDDDDDDDDDDDDDDDDDDDDDDD///////////////////
+							cout << map2[i] << " " ;
+							if( (i+1)%12==0 ) cout << endl;
+						}
+						cout << "firstZero2:" << firstZero2 << endl;////////////DDDDDDDDDDDDDDDDDDDD///////////////
+					*/	
 						if( firstZero2==-1 ){
 							for( int i=0 ; i<144 ; i++ ){
 								if( map1[i]!=map2[i] ){
@@ -164,7 +192,7 @@ using namespace std;
 			if( answer==3 ){
 				cout << "1" << endl;
 				for( int i=0 ; i<144 ; i++ ){
-					cout << map1[i] << " ";
+					cout << map2[i] << " ";
 					if( ( (i+1)%12 )==0 ){
 						cout << endl;
 					}
@@ -177,8 +205,8 @@ using namespace std;
 				if( map[i]==0 ){
 					return i;
 				}
-				return -1;
 			}
+			return -1;
 		}
 		
 		void sdk::setElementup( int z ){
@@ -192,8 +220,8 @@ using namespace std;
 			for( int i=0 ; i<12 ; i++ ){//get row
 				row[i] = map1[y*12+i];
 			}
-			for( int i=0 ; i<144 ; i+=12 ){//get column
-				column[i] = map1[x+i];
+			for( int i=0 ; i<12 ; i++ ){//get column
+				column[i] = map1[x+i*12];
 			}
 			for( int i=0 ; i<9 ; i++ ){//get cell
 				cell[i] = map1[36*(yy%4)+3*(xx%4)+12*(i/3)+(i%3)];
@@ -254,17 +282,17 @@ using namespace std;
 			for( int i=0 ; i<12 ; i++ ){//get row
 				row[i] = map2[y*12+i];
 			}
-			for( int i=0 ; i<144 ; i+=12 ){//get column
-				column[i] = map2[x+i];
+			for( int i=0 ; i<12 ; i++ ){//get column
+				column[i] = map2[x+i*12];
 			}
 			for( int i=0 ; i<9 ; i++ ){//get cell
 				cell[i] = map2[36*(yy%4)+3*(xx%4)+12*(i/3)+(i%3)];
 			}
-			start2 = 1;
+			start2 = 9;
 			if( last2==1 ){
 				start2 = map2[step2*2];
 			}
-			for( int set=start2 ; set<=9 ; set++ ){
+			for( int set=start2 ; set>=0 ; set-- ){
 				int s = 1;//decide whether the number is right or not
 				for( int i=0 ; i<12 ; i++ ){//check row
 					if( row[i]==set ){
@@ -290,7 +318,7 @@ using namespace std;
 					}
 				}
 				if( s==1 ){
-					map2[z] = set;
+					map2[z] = set;   cout << "map2[z]:" << map2[z] <<endl;///////////////DDDDDDDDDDDDD
 					info2[step2*2-1] = z;
 					info1[step2*2] = set;
 					step2++;
