@@ -315,7 +315,7 @@ using namespace std;
 			}
 		}//setElementdw End
 
-		bool Sudoku::CheckMap( int map[] ){
+	/*	bool Sudoku::CheckMap( int map[] ){
 			int check[12];
 			bool result;
 			for( int i=0 ; i<144 ; i+=12 ){//check row
@@ -385,3 +385,5 @@ using namespace std;
 			}
 			return true;
 		}//CheckCell end;
+
+	*/

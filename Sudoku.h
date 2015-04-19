@@ -23,8 +23,9 @@ class Sudoku{
 		int getFirstZero( int map[] );
 		void setElementup( int z );
 		void setElementdw( int z );
-	private:
+	/*private:
 		bool CheckMap( int map[] );
 		bool CheckLine( int line[] );
 		bool CheckCell( int cell[] );
+	*/
 };
